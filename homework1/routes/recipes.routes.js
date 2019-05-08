@@ -49,6 +49,20 @@ router.post('/:userId/recipes', (req, res) => {
         `Invalid recipe: ${util.inspect(err)}`, err));
 });
 
+router.get('/:userId/recipes/:recipeId', (req, res) => {
+    const db = req.app.locals.db;
+    const params = req.params;
+    indicative.validate(params, { id: 'required|regex:^[0-9a-f]{24}$' })
+    .then(recipe => {
+        console.log("Getting recipe: ", recipe);
+        db.collection('recipes').find({"_id" : ObjectID(params.id)}).toArray().then(recipes => {
+            console.log(recipes);
+            res.json(recipes.map(singleRecipe => replaceId(singleRecipe)));
+        });
+    }).catch(err => error(req, res, 400, 
+        `Invalid recipe: ${util.inspect(err)}`, err));
+});
+
 router.put('/:userId/recipes/:recipeId', (req, res) => {
     const db = req.app.locals.db;
     const params = req.params;
