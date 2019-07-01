@@ -1,0 +1,24 @@
+.navigationList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: gainsboro;
+}
+
+.navListItem {
+  float: right;
+}
+
+.navigationItem{
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li NavLink:hover {
+  background-color: gainsboro;
+}
