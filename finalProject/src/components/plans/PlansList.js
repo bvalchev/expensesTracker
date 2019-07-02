@@ -91,7 +91,6 @@ class PlansList extends React.Component {
               .catch(error => console.error('Error:', error));
             
         } else {
-            // article.id = '' + Date.now();
             console.log(plan);
             fetch(API_URL, {
                 method: 'POST', // or 'PUT'

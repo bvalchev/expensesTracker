@@ -223,8 +223,6 @@ class TransactionList extends React.Component {
               .catch(error => console.error('Error:', error));
             
         } else {
-            // article.id = '' + Date.now();
-            console.log(transaction);
             fetch(API_URL, {
                 method: 'POST', // or 'PUT'
                 body: JSON.stringify(transaction), // data can be `string` or {object}!

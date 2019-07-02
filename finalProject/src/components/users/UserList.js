@@ -35,10 +35,6 @@ class UserList extends React.Component {
             });
     }
 
-    // const [articles, setArticles] = useState(ARTICLES);
-    // const [showAddForm, setShowAddForm] = useState(false);
-    // const [editMode, setEditMode] = useState(true);
-
     removeUser = (user) => {
         fetch(API_URL + "/" + user.id, {
             method: 'DELETE', // or 'PUT'
@@ -93,8 +89,6 @@ class UserList extends React.Component {
               .catch(error => console.error('Error:', error));
             
         } else {
-            // article.id = '' + Date.now();
-            console.log(user);
             fetch(API_URL, {
                 method: 'POST', // or 'PUT'
                 body: JSON.stringify(user), // data can be `string` or {object}!
