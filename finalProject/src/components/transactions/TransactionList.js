@@ -1,6 +1,4 @@
 import React from 'react';
-import update from 'react-addons-update'; // ES6
-import {Table, Row, Col, Button, Icon, Card } from 'react-materialize';
 import Transaction from './Transaction';
 import TransactionForm from './TransactionForm';
 //import 'jQuery/lib/node-jquery.js'
@@ -38,7 +36,79 @@ class TransactionList extends React.Component {
                 if(transactions.data == null){
                     alert('Not logged in');
                     //this.props.history.push({pathname: '/login',state: { some: 'login' }})
-                  }
+                }
+                  transactions.data.forEach(function(transaction){
+                        let isForInsert = false;
+                        let dateForInsert = '';
+                        if(transaction.isPeriodical){
+                            let now = new Date();
+                            if(transaction.type === 'daily'){
+                                let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDay())
+                                if(transaction.lastDateInserted && (Date.parse(transaction.lastDateInserted) < startOfDay)){
+                                    isForInsert = true;
+                                    dateForInsert = startOfDay;
+                                }
+                            }
+                            if(transaction.type === 'monthly'){
+                                let thisMonth = new Date(now.getFullYear(), now.getMonth(), 0)
+                                if(transaction.lastDateInserted && new Date(transaction.lastDateInserted) < thisMonth){
+                                    isForInsert = true
+                                    dateForInsert = thisMonth;
+                                }
+                            } 
+                            if(transaction.type === 'yearly'){
+                                let thisYear = new Date(now.getFullYear(), 0, 0)
+                                if(transaction.lastDateInserted && new Date(transaction.lastDateInserted) < thisYear){
+                                    isForInsert = true
+                                    dateForInsert = thisYear;
+                                }
+                            }  
+                            if(isForInsert){
+                            
+                                let transactionToInsert = JSON.parse(JSON.stringify(transaction));
+                                transactionToInsert.id = '';
+                                transactionToInsert.name = 'Periodical transaction for ' + transaction.name;
+                                transactionToInsert.type = '';
+                                transactionToInsert.isPeriodical = false;
+                                transactionToInsert.publicationDate = new Date();
+                                transaction.lastDateInserted = new Date();
+
+                                fetch(API_URL, {
+                                    method: 'POST', // or 'PUT'
+                                    body: JSON.stringify(transactionToInsert), // data can be `string` or {object}!
+                                    headers:{
+                                      'Content-Type': 'application/json',
+                                      'x-access-token':  JSON.parse(localStorage.getItem('currentUser')).token
+                                    }
+                                  }).then(res => res.json())
+                                  .catch(error => console.error('Error:', error))
+                                  .then(a => {
+                                    if(a.message){
+                                        alert(a.message);
+                                        return;
+                                    }
+                                  })
+                                  .catch(error => console.error('Error:', error));
+
+                                fetch(API_URL + '/' + transaction.id, {
+                                    method: 'PUT',
+                                    body: JSON.stringify(transaction), // data can be `string` or {object}!
+                                    headers:{
+                                      'Content-Type': 'application/json',
+                                      'x-access-token':  JSON.parse(localStorage.getItem('currentUser')).token
+                                    }
+                                  }).then(res => res.json())
+                                  .catch(error => console.error('Error:', error))
+                                  .then(a => {
+                                    if(a.message){
+                                        alert(a.message);
+                                        return;
+                                    }
+                                  })
+                                  .catch(error => console.error('Error:', error));
+                            }                    
+                      }
+                  })
                 this.setState({transactions: transactions.data});
             });
     }
@@ -46,9 +116,11 @@ class TransactionList extends React.Component {
     handleFilterChange = (event) => {
         const target = event.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
-        /*if(value =='false'){
-            value = f
-        } */
+        if(value === 'false'){
+            value = false
+        }else if(value === 'true'){
+            value = true;
+        }
         const name = target.name;
     
         console.log(name, value);
@@ -178,14 +250,8 @@ class TransactionList extends React.Component {
         this.setState({showAddForm: false});
     }
 
-    renderTransaction(){
-        console.log(this.state.transactions);
-        if(!this.state.transactions || this.state.transactions.length == 0){
-            return;
-        }
-        
-       
-    
+    onCloseFormClick(){
+        this.setState({showAddForm : false})
     }
 
     render() {
@@ -193,21 +259,18 @@ class TransactionList extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-sm-12 col-md-12">
-                {this.state.showAddForm && <TransactionForm transaction={this.state.editedTransaction} setTransaction={this.setTransaction}/>}
+                {this.state.showAddForm && <TransactionForm transaction={this.state.editedTransaction} setTransaction={this.setTransaction} onClose={this.onCloseFormClick.bind(this)}/>}
             </div>
             <div className="col-sm-12 col-md-12">
             
                   <div>
-                      <button waves="light" onClick={() => {
+                      <button className="btn btn-success" waves="light" style={{marginBottom: '1em'}} onClick={() => {
                           this.setState({editedTransaction: {}});
                           this.setState({showAddForm : true}); 
                           this.setState({editMode: false}); 
-                      } }>
-                          Add User
+                      } } hidden={this.state.showAddForm}>
+                          Add Transaction
                       </button>
-                      {this.state.showAddForm ? <button className = "btn btn-secondary" onClick={() => {
-                          this.setState({showAddForm : false}); 
-                      } }>Close</button> : ''}
                   </div>
                   <div className="col-md-12">
                       <h2>Filter Section</h2>

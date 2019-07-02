@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col, Button, Icon, Form, TextInput, Select  } from 'react-materialize';
 
 import 'bootstrap/dist/css/bootstrap.css';
 //import 'bootstrap/dist/js/bootstrap.js';
@@ -97,7 +96,7 @@ class PlanForm extends React.Component {
         <div className="form-group col-md-12">
         <label>
           Amount:
-          <input type="float" name="amount" value={this.state.amount} onChange={this.handleChange} />
+          <input type="float" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
         </label>
         </div>
       </div>
@@ -120,6 +119,7 @@ class PlanForm extends React.Component {
       <div className="form-row">
         <div className="form-group col-md-12">
           <input className = "btn btn-primary" type="submit" value="Submit" />
+          <button className="btn btn-secondary" onClick={this.props.onCloseFormClick}>Close</button>
         </div>
       </div> 
       </form>

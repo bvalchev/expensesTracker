@@ -1,7 +1,5 @@
 import React from 'react';
-import update from 'react-addons-update'; // ES6
 import {Line, Pie} from 'react-chartjs-2';
-import {Table, Row, Col, Button, Icon, Card } from 'react-materialize';
 
 //import 'jQuery/lib/node-jquery.js'
 import 'bootstrap/dist/css/bootstrap.css';

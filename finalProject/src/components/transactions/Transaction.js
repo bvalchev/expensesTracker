@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col, Card } from 'react-materialize';
 import 'bootstrap/dist/css/bootstrap.css';
 //import 'bootstrap/dist/js/bootstrap.min.js';
 
@@ -23,7 +22,7 @@ class Transaction extends React.Component {
                 <td className="pt-3-half" >{this.state.transaction.amount}</td>
                 <td className="pt-3-half" >{this.state.transaction.isPeriodical}</td>
                 <td className="pt-3-half" >{this.state.transaction.type}</td>
-                <td className="pt-3-half" >{this.state.transaction.registrtionDate}</td>
+                <td className="pt-3-half" >{this.state.transaction.registrationDate}</td>
                 <td>
                     <span className="table-remove">
                         <button type="button" className="btn btn-danger btn-rounded btn-sm my-0" onClick={this.props.removeTransaction.bind(this, this.state.transaction)}>Remove</button> 

@@ -57,7 +57,7 @@ MongoClient.connect(dburl, { useNewUrlParser: true }).then( db => {
     app.locals.db = database;
     app.listen( port, err => {
         if(err) throw err;
-        console.log(`Recipes API is listening on port ${port}`);
+        console.log(`Online finance API is listening on port ${port}`);
     });
 }).catch(err => { 
     console.error("Error! MongoDB is probably not running.")

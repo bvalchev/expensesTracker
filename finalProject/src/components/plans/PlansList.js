@@ -1,6 +1,4 @@
 import React from 'react';
-import update from 'react-addons-update'; // ES6
-import {Table, Row, Col, Button, Icon, Card } from 'react-materialize';
 import Plan from './Plan';
 import PlanForm from './PlanForm';
 //import 'jQuery/lib/node-jquery.js'
@@ -127,19 +125,22 @@ class PlansList extends React.Component {
         }
     }
 
+    onCloseFormClick(){
+        this.setState({showAddForm : false})
+    }
+
     render() {
         return (
         <div className="container-fluid">
           <div className="col-sm-12 col-md-12">
            
                 <div>
-                    <button waves="light" onClick={() => {
+                    <button className="btn btn-success" waves="light" style={{marginBottom: '1em'}} onClick={() => {
                         this.setState({editedPlan: {}});
                         this.setState({showAddForm : true}); 
                         this.setState({editMode: false}); 
-                    } }>
-                        Add User
-                        <Icon right>add_box</Icon>
+                    } } hidden={this.state.showAddForm}>
+                        Add Plan  
                     </button>
                 </div>
                 <table className="table table-bordered table-responsive-md table-striped text-center">
@@ -168,7 +169,7 @@ class PlansList extends React.Component {
         </div>
         <div className="col-sm-12 col-md-12">
         {this.state.showAddForm &&
-        <PlanForm plan={this.state.editedPlan} setPlan={this.setPlan}/>
+        <PlanForm plan={this.state.editedPlan} setPlan={this.setPlan} onCloseFormClick={this.onCloseFormClick.bind(this)} />
         }
         </div>
         </div>

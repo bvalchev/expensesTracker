@@ -16,19 +16,7 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.onLoginClick = this.onLoginClick.bind(this);
         this.goToRegister = this.goToRegister.bind(this);
-
-        // if (JSON.parse(localStorage.getItem('currentUser')) && JSON.parse(localStorage.getItem('currentUser')).auth === true) { 
-        //     this.props.history.push('/dashboard');
-        // }
     }
-
-    /*componentDidUpdate(){
-        if (JSON.parse(localStorage.getItem('currentUser')) && JSON.parse(localStorage.getItem('currentUser')).auth === true) { 
-                 this.props.history.push('/');
-            }
-    }*/
-
-
     onLoginClick(event){
         let loginData = {
            username: this.state.username,
@@ -74,6 +62,15 @@ class Login extends Component {
       this.props.history.push({pathname: '/register', state: {some: 'register'}})
   }
 
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
     render() {
         return (
 
@@ -91,16 +88,6 @@ class Login extends Component {
           </div>
         );
     }
-
-   handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    console.log(name, value);
-    this.setState({
-      [name]: value
-    });
-  }
 }
 
 export default Login;

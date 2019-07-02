@@ -38,7 +38,7 @@ const validationErrorMessages = {
 
 
 // GET users list
-router.get('/', verifyToken/*, verifyRole(2)*/, function (req, res) {
+router.get('/', verifyToken, verifyRole(2), function (req, res) {
     const db = req.app.locals.db;
     db.collection('users').find().toArray(
         function (err, docs) {

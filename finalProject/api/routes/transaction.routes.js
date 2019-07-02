@@ -5,7 +5,6 @@ const util = require('util');
 const error = require('./helpers').error;
 const replaceId = require('./helpers').replaceId;
 const router = express.Router();
-const cors = require('cors');
 const verifyToken = require('./verify-token');
 const ObjectID = mongodb.ObjectID;
 const validationRules = { 
@@ -17,7 +16,8 @@ const validationRules = {
     description: 'string|max:216',
     amount: 'required|number',
     isPeriodical: 'boolean',
-    type: 'in:daily,weekly,monthly,yearly',
+    type: 'in:daily,monthly,yearly',
+    lastDateInserted: 'date',
     publicationDate: 'date',
     lastModificationDate: 'date'
 }
@@ -55,6 +55,9 @@ router.post('/:userId/transactions', verifyToken, (req, res) => {
     transaction.userId = params.userId;
     transaction.registrationDate = new Date();
     transaction.lastModificationDate = new Date();
+    if(req.body.isPeriodical){
+        transaction.lastDateInserted = new Date();
+    }
     indicative.validate(transaction, validationRules)
     .then(transaction => {
         console.log("Inserting transaction: ", transaction);

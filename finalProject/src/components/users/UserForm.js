@@ -1,6 +1,4 @@
 import React from 'react';
-import { Row, Col, Button, Icon, Form, TextInput, Select  } from 'react-materialize';
-
 import 'bootstrap/dist/css/bootstrap.css';
 //import 'bootstrap/dist/js/bootstrap.js';
 ////import 'jquery/dist/jquery'
@@ -13,7 +11,6 @@ class UserForm extends React.Component {
     super(props);
     const {user, setUser} = props;
     this.setUser = setUser;
-    console.log(user);
     this.state = {
       master: user, 
       id: user.id, 
@@ -29,9 +26,7 @@ class UserForm extends React.Component {
   handleChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    console.log(name, value);
+    const name = target.name
     this.setState({
       [name]: value
     });
@@ -40,7 +35,6 @@ class UserForm extends React.Component {
 
 
   handleSubmit(event) {
-    console.log("Role: " + this.state.role);
     this.setUser({
         id: this.state.id, 
         name: this.state.name,
@@ -111,6 +105,7 @@ class UserForm extends React.Component {
             <div className="form-row">
               <div className="form-group col-md-12">
                 <input className = "btn btn-primary" type="submit" value="Submit" />
+                <button className="btn btn-secondary" onClick={this.props.onCloseFormClick}>Close</button>
               </div>
             </div> 
             </form>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row, Col, Button, Icon, Form } from 'react-materialize';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -21,10 +20,10 @@ class TransactionForm extends React.Component {
       name: transaction.name,
       category: transaction.category ? transaction.category : 'food',
       description: transaction.description,
-      isExpense: transaction.isExpense,
+      isExpense: transaction.isExpense ? true : false,
       amount: transaction.amount,
-      isPeriodical: transaction.isPeriodical,
-      type: transaction.type,
+      isPeriodical: transaction.isPeriodical ? false : true,
+      type: transaction.type && transaction.isPeriodical ? 'daily' : transaction.type ,
       registrtionDate: transaction.registrtionDate,
     };
 
@@ -90,7 +89,7 @@ class TransactionForm extends React.Component {
       </div>)}
       <div className="form-row">
         <div className="form-group col-sm-12 col-md-3">
-          <label for="isExpense">
+          <label htmlFor="isExpense">
             Type:
           </label>
             <select className="form-control" id="isExpense" name="isExpense" value={this.state.isExpense} defaultValue = "" onChange={this.handleChange} required>
@@ -120,7 +119,8 @@ class TransactionForm extends React.Component {
         </div>
         <div className="form-group  col-sm-12 col-md-3">
           Period:
-          <select name="type" value={this.state.type} onChange={this.handleChange}>
+          <select name="type" value={this.state.type} defaultValue="" onChange={this.handleChange}>
+              <option value = "" hidden disabled>Please select...</option>
               <option value="daily">Daily</option>
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
@@ -143,13 +143,14 @@ class TransactionForm extends React.Component {
         <div className="form-group  col-sm-12 col-md-4">
           <label>
             Amount:
-            <input type="float" name="amount" value={this.state.amount} onChange={this.handleChange} />
+            <input type="number" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
           </label>
         </div>
       </div>
       <div className="form-row">
         <div className="form-group col-md-12">
           <input className = "btn btn-primary" type="submit" value="Submit" />
+          <button className="btn btn-secondary" onClick={this.props.onClose}>Close</button>
         </div>
       </div>
       </form>

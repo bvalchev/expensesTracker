@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {hashHistory } from 'react-router';
-import {Redirect} from 'react-router-dom';
 import "../css/login.css"
 
 
@@ -23,7 +21,7 @@ class Register extends Component {
 
 
     onRegisterClick(event){
-        
+        event.preventDefault();
         if(this.state.password != this.state.repeatPassword){
             alert('Passwords should match');
             return;
@@ -48,24 +46,35 @@ class Register extends Component {
                 alert(response.message);
                 return;
             }else{
-               // this.props.history.push("/login");
+                this.setState({
+                    repeatPassword: '',
+                    username: '',
+                    password: '',
+                    name: '',
+                 });
+                
+                
                 console.log('User', JSON.stringify(response))
+                this.props.history.push({pathname: "/login", state: {some: 'login'}});
             }
       
           })
           .catch(error => console.error('Error:', error));
-         this.setState({
-            repeatPassword: '',
-            username: '',
-            password: '',
-            name: '',
-         });
-          event.preventDefault();
+       
     }
 
     goToLogin = ()=>{
         this.props.history.push({pathname: '/login', state: {some: 'login'}})
     }
+
+    handleChange = (event) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+          [name]: value
+        });
+      }
 
     render() {
         return (
@@ -88,16 +97,6 @@ class Register extends Component {
           </div>
         );
     }
-
-   handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    console.log(name, value);
-    this.setState({
-      [name]: value
-    });
-  }
 }
 
 export default Register;

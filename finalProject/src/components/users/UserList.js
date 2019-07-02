@@ -1,6 +1,4 @@
 import React from 'react';
-import update from 'react-addons-update'; // ES6
-import {Table, Row, Col, Button, Icon, Card } from 'react-materialize';
 import User from './User';
 import UserForm from './UserForm';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -30,7 +28,7 @@ class UserList extends React.Component {
             .then(users => {
                 console.log(users.data);
                 if(users.data == null){
-                    alert('You are not logged in');
+                    alert('You are not logged in or you do not have permission to see users');
                    // this.props.history.push({pathname: '/login',state: { some: 'login' }})
                 }
                 this.setState({users: users.data});
@@ -132,6 +130,10 @@ class UserList extends React.Component {
        
     
     }
+    
+    onCloseFormClick(){
+        this.setState({showAddForm : false})
+    }
 
     render() {
         return (
@@ -139,13 +141,12 @@ class UserList extends React.Component {
                 <div className="col-sm-12 col-md-12" >
                   
                         <div>
-                            <button waves="light" onClick={() => {
+                            <button className="btn btn-success" waves="light" style={{marginBottom: '1em'}} onClick={() => {
                                 this.setState({editedUser: {}});
                                 this.setState({showAddForm : true}); 
                                 this.setState({editMode: false}); 
-                            } } data-toggle="modal" data-target="#usersModal" >
+                            } } hidden={this.state.showAddForm}>
                                 Add User
-                                <Icon right>add_box</Icon>
                             </button>
                         </div>
                         <table className="table table-bordered table-responsive-md table-striped text-center">
@@ -158,7 +159,7 @@ class UserList extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.state.users.map(user => (
+                                { this.state.users && this.state.users.map(user => (
                 <User key={user.id} user={user} onEditClick={this.onEditClick} removeUser={this.removeUser} editCallback={() => {
                     this.setState({editedUser: user});
                     this.setState({showAddForm : true}); 
@@ -172,26 +173,8 @@ class UserList extends React.Component {
                 <div  className="col-sm-12 col-md-12">
                 {this.state.showAddForm &&
                 <div className="row">
-                    <div className="modal" id="usersModal" tabIndex="-1" role="dialog">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Modal title</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <UserForm user={this.state.editedUser} setUser={this.setUser}/>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <UserForm user={this.state.editedUser} setUser={this.setUser} onCloseFormClick={this.onCloseFormClick.bind(this)}/>
                 </div>
-                
                 }
                 </div>
             </div>
