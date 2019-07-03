@@ -11,8 +11,8 @@ let userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localS
 console.log(userId);
 const categoriesNames = ['food', 'clothes', 'groceries', 'bills', 'coffee', 'freeTime'];
 
-const PLANS_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
-const TRANSACTION_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
+let PLANS_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
+let TRANSACTION_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
 class Dashboard extends React.Component {
     state = {
         transactions: [],
@@ -32,6 +32,9 @@ class Dashboard extends React.Component {
         this.getBalance = this.getBalance.bind(this);
         this.getCategoriesValues = this.getCategoriesValues.bind(this);
         this.getMonthlyValues = this.getMonthlyValues.bind(this);
+        userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).user.id : -1;
+        PLANS_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
+        TRANSACTION_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
         this.fetchData(TRANSACTION_URL, 'transactions');
         this.fetchData(PLANS_URL, 'plans');      
     }

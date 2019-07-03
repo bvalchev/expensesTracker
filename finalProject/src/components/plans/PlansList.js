@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
 let userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).user.id : -1;
-const API_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
+let API_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
 
 class PlansList extends React.Component {
     state = {
@@ -18,6 +18,8 @@ class PlansList extends React.Component {
 
     constructor(props) {
         super(props);
+        userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).user.id : -1;
+        API_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
         fetch(API_URL, {
             method: 'GET',
             headers:{
