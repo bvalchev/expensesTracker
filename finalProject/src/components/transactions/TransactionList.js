@@ -180,13 +180,13 @@ class TransactionList extends React.Component {
         })
             .then(resp => resp.json())
             .then(users => {
-                console.log(users.data);
-                if(users.data == null){
+                console.log(users);
+                if(users == null){
                     alert('You are not logged in or you do not have permission to see users');
                    // this.props.history.push({pathname: '/login',state: { some: 'login' }})
                 }
-                if(users[0].data){
-                    return users[0].data.email;
+                if(users[0]){
+                    return users[0].name;
                 }else{
                     return null;
                 }
