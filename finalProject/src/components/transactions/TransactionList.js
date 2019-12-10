@@ -112,12 +112,23 @@ class TransactionList extends React.Component {
                             }                    
                       }
                   })
-                var userEmail = this.getUserEmail();
+               
                 var currenttransactionsSum = 0;
                 transactions.data.forEach(function(transaction){
                     transaction.isExpense ? currenttransactionsSum -= transaction.amount : currenttransactionsSum += transaction.amount;
                 });
-                fetch('http://localhost:9000/api/planDetail/' + userId + '/plans', {
+                
+                
+                this.setState({
+                    transactions: transactions.data, 
+                    transactionsSum: currenttransactionsSum
+                });
+            });
+    }
+
+    sendNotificationIfNeeded(){
+        var userEmail = this.getUserEmail();
+        fetch('http://localhost:9000/api/planDetail/' + userId + '/plans', {
                     method: 'GET',
                     headers:{
                         'Content-Type': 'application/json',
@@ -156,13 +167,7 @@ class TransactionList extends React.Component {
                             }
                         })
                     });
-                
-                this.setState({
-                    transactions: transactions.data, 
-                    transactionsSum: currenttransactionsSum
-                });
-            });
-    }
+    };
 
     getUserEmail(){
         fetch('http://localhost:9000/api/users/' + userId, {
@@ -180,7 +185,11 @@ class TransactionList extends React.Component {
                     alert('You are not logged in or you do not have permission to see users');
                    // this.props.history.push({pathname: '/login',state: { some: 'login' }})
                 }
-                return users[0].email;
+                if(users[0].data){
+                    return users[0].data.email;
+                }else{
+                    return null;
+                }
             });
     }
 
@@ -316,6 +325,7 @@ class TransactionList extends React.Component {
               .catch(error => console.error('Error:', error));
              
         }
+        this.sendNotificationIfNeeded();
         this.setState({showAddForm: false});
     }
 
