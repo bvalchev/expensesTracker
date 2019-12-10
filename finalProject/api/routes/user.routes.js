@@ -13,7 +13,7 @@ const verifyRole = require('./verify-role');
 const validationRules = { 
     id: 'regex:^[0-9a-f]{24}$',
     name: 'required|string|min:2',
-    username: 'required|string|max:15',//|unique:users,_username',
+    username: 'required|string|max:150',//|unique:users,_username',
     password: 'required|string|min:6|max:20',
     role: 'required|integer|above:0|under:3'
 }
