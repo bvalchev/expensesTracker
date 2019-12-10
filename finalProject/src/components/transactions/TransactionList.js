@@ -17,7 +17,8 @@ class TransactionList extends React.Component {
         filterIsPeriodical: '',
         showAddForm: false,
         editMode: true,
-        editedTransaction: undefined
+        editedTransaction: undefined,
+        transctionsSum: 0
     }
 
     constructor(props) {
@@ -111,7 +112,75 @@ class TransactionList extends React.Component {
                             }                    
                       }
                   })
-                this.setState({transactions: transactions.data});
+                var userEmail = this.getUserEmail();
+                var currenttransactionsSum = 0;
+                transactions.data.forEach(function(transaction){
+                    transaction.isExpense ? currenttransactionsSum -= transaction.amount : currenttransactionsSum += transaction.amount;
+                });
+                fetch('http://localhost:9000/api/planDetail/' + userId + '/plans', {
+                    method: 'GET',
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'x-access-token':  JSON.parse(localStorage.getItem('currentUser')).token
+                      }
+                })
+                    .then(resp => resp.json())
+                    .then(plans => {
+                        if(plans.data == null){
+                            alert('You are not logged in')
+                            //this.props.history.push({pathname: '/login',state: { some: 'login' }})
+                        }
+                        console.log(plans.data);
+                        plans.data.forEach((singlePlan) => {
+                            if(singlePlan.amount > this.state.transctionsSum){
+                                var emailInfo = new Object;
+                                emailInfo.email = userEmail;
+                                emailInfo.plan = singlePlan.name;
+                                emailInfo.amount = singlePlan.amount;
+                                fetch('http://localhost:4444/completed-plans', {
+                                    method: 'POST',
+                                    body: JSON.stringify(emailInfo), // data can be `string` or {object}!
+                                    headers:{
+                                      'Content-Type': 'application/json'
+                                    }
+                                  }).then(res => res.json())
+                                  .catch(error => console.error('Error:', error))
+                                  .then(a => {
+                                    if(a.message){
+                                        alert(a.message);
+                                        return;
+                                    }
+                                  })
+                                  .catch(error => console.error('Error:', error));
+                            }
+                        })
+                    });
+                
+                this.setState({
+                    transactions: transactions.data, 
+                    transactionsSum: currenttransactionsSum
+                });
+            });
+    }
+
+    getUserEmail(){
+        fetch('http://localhost:9000/api/users/' + userId, {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'x-access-token':  JSON.parse(localStorage.getItem('currentUser')).token
+              }
+        })
+            .then(resp => resp.json())
+            .then(users => {
+                console.log(users.data);
+                if(users.data == null){
+                    alert('You are not logged in or you do not have permission to see users');
+                   // this.props.history.push({pathname: '/login',state: { some: 'login' }})
+                }
+                return users[0].email;
             });
     }
 
