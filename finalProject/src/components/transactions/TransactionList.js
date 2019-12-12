@@ -5,6 +5,8 @@ import TransactionForm from './TransactionForm';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
+import '../../css/form.css';
+
 let userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).user.id : -1;
 let API_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
 

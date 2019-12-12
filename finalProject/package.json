@@ -36,6 +36,7 @@
     "react": "^16.8.6",
     "react-addons-update": "^15.6.2",
     "react-chartjs-2": "^2.7.6",
+    "react-chat-window": "^1.2.1",
     "react-dom": "^16.8.6",
     "react-materialize": "^3.3.0",
     "react-modal": "^3.8.2",

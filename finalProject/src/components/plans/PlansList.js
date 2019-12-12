@@ -1,6 +1,9 @@
 import React from 'react';
 import Plan from './Plan';
 import PlanForm from './PlanForm';
+
+import ChatComponent from '../Chat/ChatComponent';
+
 //import 'jQuery/lib/node-jquery.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -173,6 +176,11 @@ class PlansList extends React.Component {
         <PlanForm plan={this.state.editedPlan} setPlan={this.setPlan} onCloseFormClick={this.onCloseFormClick.bind(this)} />
         }
         </div>
+
+        <div>
+            <ChatComponent      />
+        </div>
+
         </div>
         );
     }

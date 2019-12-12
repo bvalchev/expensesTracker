@@ -2,6 +2,7 @@ import React from 'react';
 import User from './User';
 import UserForm from './UserForm';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../css/form.css';
 //import 'bootstrap/dist/js/bootstrap.min.js';
 
 const API_URL = 'http://localhost:9000/api/users';

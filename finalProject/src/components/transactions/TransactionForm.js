@@ -73,90 +73,97 @@ class TransactionForm extends React.Component {
 
   render() {
     return (
-      <div className = "container">
-    <div className = "row">
-    <div className="col-lg-12">
-      <form onSubmit={this.handleSubmit}>
-        
-      {this.state.id && ( 
-      <div className="form-row">
-        <div className="form-group col-md-12">				
-            <label>
-            ID:
-            <input type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled/>
-          </label>
+      <div className="container">
+        <form class="user-add-edit-form">
+          <div className="row">
+            <div className="col-lg-12">
+              <form onSubmit={this.handleSubmit}>
+
+                {this.state.id && (
+                  <div className="form-row">
+                    <div className="form-group col-md-12">
+                      <label>
+                        ID:
+                        <input className="form-control" type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled />
+                      </label>
+                    </div>
+                  </div>)}
+                <div className="form-row">
+                  <div className="form-group col-sm-12 col-md-3">
+                    <label htmlFor="isExpense">
+                      Type:
+                    </label>
+                    <select className="form-control" id="isExpense" name="isExpense" value={this.state.isExpense} defaultValue="" onChange={this.handleChange} required>
+                      <option value="" disabled hidden>Please Choose...</option>
+                      <option value={false}>Income</option>
+                      <option value={true}>Expense</option>
+                    </select>
+                  </div>
+                  <div className="form-group  col-sm-12 col-md-3">
+                    <label>
+                      Categoty:
+                    </label>
+                    <select className="form-control" name="category" value={this.state.category} defaultValue="food" onChange={this.handleChange}>
+                      <option value="food">Food</option>
+                      <option value="clothes">Clothes</option>
+                      <option value="groceries">Groceries</option>
+                      <option value="bills">Bills</option>
+                      <option value="coffee">Coffee</option>
+                      <option value="freeTime">Free Time</option>
+                      <option value="income">Income</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group  col-sm-12 col-md-3">
+                    <label>
+                      Is Periodical?
+                      </label>
+                      <input className="form-control" type="checkbox" name="isPeriodical" value={this.state.isPeriodical} onChange={this.handleChange} />
+                  </div>
+                  <div className="form-group  col-sm-12 col-md-3">
+                    <label>
+                      Period:
+                    </label>
+                    <select className="form-control" name="type" value={this.state.type} defaultValue="" onChange={this.handleChange}>
+                      <option value="" hidden disabled>Please select...</option>
+                      <option value="daily">Daily</option>
+                      <option value="monthly">Monthly</option>
+                      <option value="yearly">Yearly</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-4">
+                    <label>
+                      Name:
+            <input className="form-control" type="text" name="name" value={this.state.name} onChange={this.handleChange} className="formControl" />
+                    </label>
+                  </div>
+                  <div className="form-group  col-sm-12 col-md-4">
+                    <label>
+                      Description:
+            <input className="form-control" type="text" name="description" value={this.state.description} onChange={this.handleChange} className="formControl" />
+                    </label>
+                  </div>
+                  <div className="form-group  col-sm-12 col-md-4">
+                    <label>
+                      Amount:
+            <input className="form-control" type="number" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
+                    </label>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-12">
+                    <input className="btn btn-primary" type="submit" value="Submit" />
+                    <button className="btn btn-secondary" onClick={this.props.onClose}>Close</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-      </div>)}
-      <div className="form-row">
-        <div className="form-group col-sm-12 col-md-3">
-          <label htmlFor="isExpense">
-            Type:
-          </label>
-            <select className="form-control" id="isExpense" name="isExpense" value={this.state.isExpense} defaultValue = "" onChange={this.handleChange} required>
-                <option value="" disabled hidden>Please Choose...</option>
-                <option value={false}>Income</option>
-                <option value={true}>Expense</option>
-            </select>
-         
-        </div>
-        <div className="form-group  col-sm-12 col-md-3">  
-            Categoty:
-            <select name="category" value={this.state.category} defaultValue="food" onChange={this.handleChange}>
-                <option value="food">Food</option>
-                <option value="clothes">Clothes</option>
-                <option value="groceries">Groceries</option>
-                <option value="bills">Bills</option>
-                <option value="coffee">Coffee</option>
-                <option value="freeTime">Free Time</option>
-                <option value="income">Income</option>
-            </select>
-        </div>
-        <div className="form-group  col-sm-12 col-md-3">
-          <label>
-            Is Periodical?:
-            <input type="checkbox" name="isPeriodical" value={this.state.isPeriodical} onChange={this.handleChange}/>
-          </label>
-        </div>
-        <div className="form-group  col-sm-12 col-md-3">
-          Period:
-          <select name="type" value={this.state.type} defaultValue="" onChange={this.handleChange}>
-              <option value = "" hidden disabled>Please select...</option>
-              <option value="daily">Daily</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-          </select>
-        </div>
+        </form>
       </div>
-      <div className="form-row">
-        <div className="form-group col-md-4">
-          <label>
-            Name:
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="formControl"/>
-          </label>
-        </div>
-        <div className="form-group  col-sm-12 col-md-4">
-          <label>
-            Description:
-            <input type="text" name="description" value={this.state.description} onChange={this.handleChange} className="formControl"/>
-          </label>
-        </div>
-        <div className="form-group  col-sm-12 col-md-4">
-          <label>
-            Amount:
-            <input type="number" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
-          </label>
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group col-md-12">
-          <input className = "btn btn-primary" type="submit" value="Submit" />
-          <button className="btn btn-secondary" onClick={this.props.onClose}>Close</button>
-        </div>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
     );
   }
 }

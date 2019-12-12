@@ -64,65 +64,79 @@ class PlanForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div className="form-div">
+      <form className="user-add-edit-form" onSubmit={this.handleSubmit}>
      
       {this.state.id && (
         
     <div className="form-row">
       <div className="form-group col-md-12">				
-          <label>
+          <label className='label-row'>
           ID:
+          <br>
+          </br>
           <input type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled/>
         </label>
         </div>
       </div>)}
       <div className="form-row">
-        <div className="form-group col-md-12">
-          <label>
+        <div className="form-group ">
+          <label className='label-row'>
             Plan Name:
+            <br>
+          </br>
             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="formControl"/>
           </label>
         </div>
       </div>
       <div className="form-row">
-        <div className="form-group col-md-12">
-        <label>
+        <div className="form-group ">
+        <label className='label-row'>
           Description:
+          <br>
+          </br>
           <input type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
         </label>
         </div>
       </div>
       <div className="form-row">
-        <div className="form-group col-md-12">
-        <label>
+        <div className="form-group ">
+        <label className='label-row'>
           Amount:
+          <br>
+          </br>
           <input type="float" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
         </label>
         </div>
       </div>
       <div className="form-row">
-        <div className="form-group col-md-12">
-        <label>
+        <div className="form-group ">
+        <label className='label-row'>
           End Date:
+          <br>
+          </br>
           <input type="date" name="endDate" value={this.state.endDate} onChange={this.handleChange} />
         </label>
         </div>
       </div>
       <div className="form-row">
-        <div className="form-group col-md-12">
-        <label>
+        <div className="form-group ">
+        <label className='label-row'>
           Publication Date Date:
+          <br>
+          </br>
           <input type="date" name="publicationDate" value={this.state.publicationDate} onChange={this.handleChange} disabled/>
         </label>
         </div>
       </div>
       <div className="form-row">
-        <div className="form-group col-md-12">
+        <div className="form-group">
           <input className = "btn btn-primary" type="submit" value="Submit" />
           <button className="btn btn-secondary" onClick={this.props.onCloseFormClick}>Close</button>
         </div>
       </div> 
       </form>
+      </div>
     );
   }
 }
