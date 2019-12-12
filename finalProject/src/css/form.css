@@ -1,0 +1,26 @@
+.user-add-edit-form{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border:solid 2px grey;
+    border-radius: 20px;
+    padding: 10px;
+    width: 50%;
+}
+.form-div{
+    display: block;
+    text-align: center;
+    margin-top:10px;
+}
+.form-group{
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-row{
+    size:10px;
+}
+.div-transactions{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
