@@ -24,12 +24,9 @@ class Transaction extends React.Component {
                 <td className="pt-3-half" >{this.state.transaction.type}</td>
                 <td className="pt-3-half" >{this.state.transaction.registrationDate}</td>
                 <td>
-                    <span className="table-remove">
-                        <button type="button" className="btn btn-danger btn-rounded btn-sm my-0" onClick={this.props.removeTransaction.bind(this, this.state.transaction)}>Remove</button> 
-                    </span>
-                    <span className="table-edit">
-                        <button type="button" className="btn btn-warning btn-rounded btn-sm my-0" onClick={this.props.editCallback.bind(this)}>Edit</button> 
-                    </span>
+                    <button type="button" disabled ={this.props.shouldDisableEditButton} style={{margin: "3%"}} className="btn btn-warning btn-rounded btn-sm my-0" onClick={this.props.editCallback.bind(this)}>Edit</button> 
+                    <button type="button" className="btn btn-danger btn-rounded btn-sm my-0" style={{margin: "3%"}} onClick={this.props.removeTransaction.bind(this, this.state.transaction)}>Remove</button> 
+                    
                 </td>
             </tr>
         );

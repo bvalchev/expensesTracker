@@ -18,7 +18,8 @@ class TransactionList extends React.Component {
         showAddForm: false,
         editMode: true,
         editedTransaction: undefined,
-        transctionsSum: 0
+        transctionsSum: 0,
+        userEmail: 'default'
     }
 
     constructor(props) {
@@ -126,8 +127,15 @@ class TransactionList extends React.Component {
             });
     }
 
+    componentDidMount(){
+        this.getUserEmail()
+    }
+
     sendNotificationIfNeeded(){
-        var userEmail = this.getUserEmail();
+        /*function check(_callback){
+            _callback();
+        }*/
+        
         fetch('http://localhost:9000/api/planDetail/' + userId + '/plans', {
                     method: 'GET',
                     headers:{
@@ -137,7 +145,8 @@ class TransactionList extends React.Component {
                       }
                 })
                     .then(resp => resp.json())
-                    .then(plans => {
+                    
+                    .then(plans => {  
                         if(plans.data == null){
                             alert('You are not logged in')
                             //this.props.history.push({pathname: '/login',state: { some: 'login' }})
@@ -145,8 +154,9 @@ class TransactionList extends React.Component {
                         console.log(plans.data);
                         plans.data.forEach((singlePlan) => {
                             if(singlePlan.amount > this.state.transctionsSum){
-                                var emailInfo = new Object;
-                                emailInfo.email = userEmail;
+                                //var userEmail = 
+                                let emailInfo = {};
+                                emailInfo.email = this.state.userEmail;
                                 emailInfo.plan = singlePlan.name;
                                 emailInfo.amount = singlePlan.amount;
                                 fetch('http://localhost:4444/completed-plans', {
@@ -185,10 +195,11 @@ class TransactionList extends React.Component {
                     alert('You are not logged in or you do not have permission to see users');
                    // this.props.history.push({pathname: '/login',state: { some: 'login' }})
                 }
-                if(users[0]){
-                    return users[0].name;
+                if(users){
+                    console.log(users.email)
+                    this.setState({userEmail: users.username})
                 }else{
-                    return null;
+                    console.log('pedal');
                 }
             });
     }
@@ -275,6 +286,7 @@ class TransactionList extends React.Component {
 
 
     setTransaction = (transaction) => {
+        this.getUserEmail();
         if(this.state.editMode) {
             console.log(transaction);
             fetch(API_URL + '/' + transaction.id, {
@@ -359,7 +371,7 @@ class TransactionList extends React.Component {
                       </div>
                       <div className ="col-md-3"> 
                         <label>Filter by category</label>
-                        <select name="filterCategory" value={this.state.filterCategory} defaultValue="" onChange={this.handleFilterChange}>
+                        <select name="filterCategory" value={this.state.filterCategory} onChange={this.handleFilterChange}>
                             <option value="">Please select category to filter</option>
                             <option value="food">Food</option>
                             <option value="clothes">Clothes</option>
@@ -372,7 +384,7 @@ class TransactionList extends React.Component {
                       </div>
                       <div className ="col-md-3"> 
                         <label>Filter expenses</label>
-                        <select className="form-control" id="filterIsExpense" name="filterIsExpense" value={this.state.filterIsExpense} defaultValue = "" onChange={this.handleFilterChange} required>
+                        <select className="form-control" id="filterIsExpense" name="filterIsExpense" value={this.state.filterIsExpense} onChange={this.handleFilterChange} required>
                             <option value="">All</option>
                             <option value={false}>Income</option>
                             <option value={true}>Expense</option>
@@ -380,7 +392,7 @@ class TransactionList extends React.Component {
                       </div>
                       <div className ="col-md-3"> 
                         <label>Filter periodical</label>
-                        <select className="form-control" id="filterIsPeriodical" name="filterIsPeriodical" value={this.state.filterIsPeriodical} defaultValue = "" onChange={this.handleFilterChange} required>
+                        <select className="form-control" id="filterIsPeriodical" name="filterIsPeriodical" value={this.state.filterIsPeriodical} onChange={this.handleFilterChange} required>
                             <option value="">All</option>
                             <option value={false}>Is not periodical</option>
                             <option value={true}>Is periodical</option>
@@ -405,7 +417,7 @@ class TransactionList extends React.Component {
                       </thead>
                       <tbody>
                           { this.state.transactions.map(transaction => (
-          <Transaction key={transaction.id} transaction={transaction} onEditClick={this.onEditClick} removeTransaction={this.removeTransaction} editCallback={() => {
+          <Transaction key={transaction.id} transaction={transaction} shouldDisableEditButton={this.state.showAddForm || this.editMode} onEditClick={this.onEditClick} removeTransaction={this.removeTransaction} editCallback={() => {
               this.setState({editedTransaction: transaction});
               this.setState({showAddForm : true}); 
               this.setState({editMode: true}); 

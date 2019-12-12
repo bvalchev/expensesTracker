@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 // import './App.css';
 // import 'bootstrap/dist/css/bootstrap.css';
-import { PropTypes } from 'prop-types';
+//import { PropTypes } from 'prop-types';
 // import './index.css';
 import '../src/css/navbar.css'
-import {Router, hashHistory, useRouterHistory } from 'react-router';
-import { Route, NavLink  , BrowserRouter, Redirect} from 'react-router-dom';
+import {Router/*, hashHistory, useRouterHistory*/ } from 'react-router';
+import { Route, NavLink  , /*BrowserRouter,*/ Redirect} from 'react-router-dom';
 import UserList from './components/users/UserList';
 import TransactionList from './components/transactions/TransactionList';
 import Login from './components/login.js';
 import Register from './components/register.js';
 import PlansList from './components/plans/PlansList';
 import Dashboard from './components/dashboard';
-import Navigation from './components/navigation';
+//import Navigation from './components/navigation';
 import {createBrowserHistory} from 'history';
-import { useQueries } from 'history';
+//import { useQueries } from 'history';
 import './css/navbar.css';
 
 let isTokenValid = () => {
@@ -60,12 +60,12 @@ class App extends Component{
               <div className="container-fluid">
                 <div>
                   <ul className="nav navigationList">
-                    <li  className="navListItem pull-left"><a className = "navigationItem" href="#">Finance Tracking</a></li>
+                    <li  className="navListItem pull-left"><NavLink className = "navigationItem" to="/" exact>Finance Tracking</NavLink ></li>
                     <li className="navListItem"><NavLink className = "navigationItem" to="/" exact>Home</NavLink ></li>
                     <li className="navListItem"><NavLink  className = "navigationItem" to="/users" >Users</NavLink ></li>
                     <li className="navListItem" ><NavLink className = "navigationItem"  to="/transactions" >Transactions</NavLink ></li>
                     <li className="navListItem"><NavLink className = "navigationItem"  to="/planDetail" >Plans</NavLink ></li>
-                    <li className="navListItem"><a href='#' className = "navigationItem" onClick={this.logout} >Log out</a ></li> 
+                    <li className="navListItem"><a href='#0' className = "navigationItem" onClick={this.logout} >Log out</a ></li> 
                   </ul>
                 </div>
               </div>

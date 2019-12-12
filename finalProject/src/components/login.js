@@ -81,7 +81,7 @@ class Login extends Component {
               <label htmlFor="inputPassword" className="sr-only">Password</label>
               <input type="password" id="inputPassword" className="form-control" name="password" placeholder="Password" minLength={6} maxLength={20} /*pattern="^[0-9a-f]{24}$" title="Password should include one small and one capital letter, as well as a number"*/ onChange={this.handleChange} required/>
               <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-              <p className="text-center" style={{fontSize: '1.3em'}}><a href="" onClick = {this.goToRegister}> No account?</a></p>
+              <p className="text-center" style={{fontSize: '1.3em'}}><a href="#0" onClick = {this.goToRegister}> No account?</a></p>
             </form>
           </div>
         );

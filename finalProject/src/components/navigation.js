@@ -7,16 +7,16 @@ class Navigation extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        hidden: this.props.shouldShowNavigation == null || this.props.shouldShowNavigation == false
+        hidden: this.props.shouldShowNavigation === null || this.props.shouldShowNavigation === false
       }
     }
 
     render(){
         return(
-            <nav className="navbar navbar-default"  hidden={this.props.history.location == '/login' || this.props.history.location == '/register'}>
+            <nav className="navbar navbar-default"  hidden={this.props.history.location === '/login' || this.props.history.location === '/register'}>
               <div className="container-fluid">
                 <div className="navbar-header">
-                  <a className="navbar-brand" href="#">WebSiteName</a>
+                  <a className="navbar-brand" href='/'>WebSiteName</a>
                 </div>
                 <ul className="nav navbar-nav">
                   <li  className="nav-item nav-link"><NavLink className="nav-item nav-link" to="/dashboard" style={{display: "block"}}>Home</NavLink ></li>

@@ -22,7 +22,7 @@ class Register extends Component {
 
     onRegisterClick(event){
         event.preventDefault();
-        if(this.state.password != this.state.repeatPassword){
+        if(this.state.password !== this.state.repeatPassword){
             alert('Passwords should match');
             return;
         }
@@ -92,7 +92,7 @@ class Register extends Component {
               <label htmlFor="repeatPassword" className="sr-only">Repeat Password</label>
               <input type="password" id="repeatPassword" className="form-control" name="repeatPassword" placeholder="Repeat Password" minLength={6} maxLength={20} /*pattern="^[0-9a-f]{24}$" title="Password should include one small and one capital letter, as well as a number"*/ onChange={this.handleChange} required/>
               <button className="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-              <p className="text-center" style={{fontSize: '1.3em'}}><a href="" onClick={this.goToLogin}>Already have an account?</a></p>
+              <p className="text-center" style={{fontSize: '1.3em'}}><a href="#0" onClick={this.goToLogin}>Already have an account?</a></p>
             </form>
           </div>
         );

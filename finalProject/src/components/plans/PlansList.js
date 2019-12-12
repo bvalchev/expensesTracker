@@ -30,7 +30,7 @@ class PlansList extends React.Component {
         })
             .then(resp => resp.json())
             .then(plans => {
-                if(plans.data == null){
+                if(plans.data === null){
                     alert('You are not logged in')
                     //this.props.history.push({pathname: '/login',state: { some: 'login' }})
                 }
@@ -121,7 +121,7 @@ class PlansList extends React.Component {
 
     renderPlan(){
         console.log(this.state.plans);
-        if(!this.state.plans || this.state.plans.length == 0){
+        if(!this.state.plans || this.state.plans.length === 0){
             return;
         }
     }
@@ -158,7 +158,7 @@ class PlansList extends React.Component {
                     </thead>
                     <tbody>
                         { this.state.plans.map(plan => (
-        <Plan key={plan.id} plan={plan} onEditClick={this.onEditClick} removePlan={this.removePlan} editCallback={() => {
+        <Plan key={plan.id} shouldDisableEditButton={this.state.showAddForm || this.editMode} plan={plan} onEditClick={this.onEditClick} removePlan={this.removePlan} editCallback={() => {
             this.setState({editedPlan: plan});
             this.setState({showAddForm : true}); 
             this.setState({editMode: true}); 

@@ -78,7 +78,7 @@ class UserList extends React.Component {
                     alert(a.message);
                     return;
                 }
-                let index = this.state.users.indexOf(user);
+                //let index = this.state.users.indexOf(user);
                 let newUsersArray = this.state.users.map(singleUser => (singleUser.id === user.id ? a : singleUser));
 
                 this.setState({
@@ -117,7 +117,7 @@ class UserList extends React.Component {
     renderUser(){
         console.log(this.state.users);
         //console.log(this.state.users.data);
-        if(!this.state.users || this.state.users.length == 0){
+        if(!this.state.users || this.state.users.length === 0){
             return;
         }
         
@@ -154,7 +154,7 @@ class UserList extends React.Component {
                             </thead>
                             <tbody>
                                 { this.state.users && this.state.users.map(user => (
-                <User key={user.id} user={user} onEditClick={this.onEditClick} removeUser={this.removeUser} editCallback={() => {
+                <User key={user.id} user={user} shouldDisableEditButton={this.state.showAddForm || this.editMode} onEditClick={this.onEditClick} removeUser={this.removeUser} editCallback={() => {
                     this.setState({editedUser: user});
                     this.setState({showAddForm : true}); 
                     this.setState({editMode: true}); 

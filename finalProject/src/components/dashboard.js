@@ -119,7 +119,7 @@ class Dashboard extends React.Component {
               if(publicationDate > weekAgo){
                   transaction.isExpense ? weeklySum -= parseFloat(transaction.amount) : weeklySum += parseFloat(transaction.amount)
               }
-              if(publicationDate.getDay() == today.getDay())
+              if(publicationDate.getDay() === today.getDay())
                 transaction.isExpense ? dailySum -= parseFloat(transaction.amount) : dailySum += parseFloat(transaction.amount)
             }
         })
@@ -313,7 +313,7 @@ class Dashboard extends React.Component {
             <div className="row">
                 {this.state.plans.map(plan => {return (<div key={plan.id} className="card card col-sm-12 col-md-4">
                     <div className="card-body">
-                      <h3 style={{color: 'orange'}} className="card-title"><a>{plan.name}</a></h3>
+                      <h3 style={{color: 'orange'}} className="card-title">{plan.name}</h3>
                       <p className="card-text">{plan.description}</p>
                       <p className="card-text">Target: {plan.endDate}</p>
                       <p style={{color: 'green', fontWeight: 'bold', fontSize: '1.5em'}}>Money left to accompish: ${(plan.amount - this.state.balance) > 0 ? plan.amount - this.state.balance : 0}</p>
