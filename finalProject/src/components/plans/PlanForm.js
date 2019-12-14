@@ -70,12 +70,12 @@ class PlanForm extends React.Component {
       {this.state.id && (
         
     <div className="form-row">
-      <div className="form-group col-md-12">				
+      <div className="form-group ">				
           <label className='label-row'>
           ID:
           <br>
           </br>
-          <input type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled/>
+          <input className='input-field' type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled/>
         </label>
         </div>
       </div>)}
@@ -85,7 +85,7 @@ class PlanForm extends React.Component {
             Plan Name:
             <br>
           </br>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="formControl"/>
+            <input className='input-field' type="text" name="name" value={this.state.name} onChange={this.handleChange} />
           </label>
         </div>
       </div>
@@ -95,7 +95,7 @@ class PlanForm extends React.Component {
           Description:
           <br>
           </br>
-          <input type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
+          <input className='input-field' type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
         </label>
         </div>
       </div>
@@ -105,7 +105,7 @@ class PlanForm extends React.Component {
           Amount:
           <br>
           </br>
-          <input type="float" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
+          <input className='input-field' type="float" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange} />
         </label>
         </div>
       </div>
@@ -115,7 +115,7 @@ class PlanForm extends React.Component {
           End Date:
           <br>
           </br>
-          <input type="date" name="endDate" value={this.state.endDate} onChange={this.handleChange} />
+          <input className='input-field' type="date" name="endDate" value={this.state.endDate} onChange={this.handleChange} />
         </label>
         </div>
       </div>
@@ -125,7 +125,7 @@ class PlanForm extends React.Component {
           Publication Date Date:
           <br>
           </br>
-          <input type="date" name="publicationDate" value={this.state.publicationDate} onChange={this.handleChange} disabled/>
+          <input className='input-field' type="date" name="publicationDate" value={this.state.publicationDate} onChange={this.handleChange} disabled/>
         </label>
         </div>
       </div>

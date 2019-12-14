@@ -81,7 +81,7 @@ class TransactionForm extends React.Component {
 
                 {this.state.id && (
                   <div className="form-row">
-                    <div className="form-group col-md-12">
+                    <div className="form-group col-md-6 transaction-id">
                       <label>
                         ID:
                         <input className="form-control" type="text" name="id" value={this.state.id} onChange={this.handleChange} readOnly={true} disabled />

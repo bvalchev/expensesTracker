@@ -167,7 +167,7 @@ class UserList extends React.Component {
                 </div>
                 <div  className="col-sm-12 col-md-12">
                 {this.state.showAddForm &&
-                <div className="row" className='row-for'>
+                <div className='row-for'>
                     <UserForm user={this.state.editedUser} setUser={this.setUser} onCloseFormClick={this.onCloseFormClick.bind(this)}/>
                 </div>
                 }

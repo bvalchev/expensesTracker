@@ -76,7 +76,7 @@ class UserForm extends React.Component {
                 Login Name:
                   <br>
                 </br>
-                <input className='input-field' type="text" name="username" value={this.state.username} onChange={this.handleChange} className="formControl" />
+                <input className='input-field' type="text" name="username" value={this.state.username} onChange={this.handleChange} />
               </label>
             </div>
           </div>
@@ -115,8 +115,8 @@ class UserForm extends React.Component {
           </div>
           <div className="form-row">
             <div className="form-group ">
-              <input className="btn btn-primary" type="submit" value="Submit" />
-              <button className="btn btn-secondary" onClick={this.props.onCloseFormClick}>Close</button>
+              <input className="button-form btn btn-primary" type="submit" value="Submit" />
+              <button className="button-form btn btn-secondary" onClick={this.props.onCloseFormClick}>Close</button>
             </div>
           </div>
         </form>
