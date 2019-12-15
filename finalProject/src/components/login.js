@@ -76,7 +76,7 @@ class Login extends Component {
 
             <form className="form-signin" onSubmit={this.onLoginClick}>
               <h2 className="form-signin-heading">Please sign in</h2>
-              <label htmlFor="username" className="sr-only">Username</label>
+              <label htmlFor="username" className="sr-only">Email</label>
               <input type="text" id="username" className="form-control" name="username" placeholder="Email address" minLength={2} maxLength={150} onChange={this.handleChange} required autoFocus/>
               <label htmlFor="inputPassword" className="sr-only">Password</label>
               <input type="password" id="inputPassword" className="form-control" name="password" placeholder="Password" minLength={6} maxLength={20} /*pattern="^[0-9a-f]{24}$" title="Password should include one small and one capital letter, as well as a number"*/ onChange={this.handleChange} required/>

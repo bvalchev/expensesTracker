@@ -83,8 +83,8 @@ class Register extends Component {
 
             <form className="form-signin" onSubmit={this.onRegisterClick}>
               <h2 className="form-signin-heading">Registration</h2>
-              <label htmlFor="username" className="sr-only" >Username</label>
-              <input type="text" id="username" className="form-control" name="username" placeholder="Username" minLength={2} maxLength={150} onChange={this.handleChange} required autoFocus/>
+              <label htmlFor="username" className="sr-only" >Email</label>
+              <input type="text" id="username" className="form-control" name="username" placeholder="Email" minLength={2} maxLength={150} onChange={this.handleChange} required autoFocus/>
               <label htmlFor="name" className="sr-only">Your name</label>
               <input type="text" id="name" className="form-control" name="name" placeholder="Name" minLength={2} maxLength={150} onChange={this.handleChange} required/>
               <label htmlFor="inputPassword" className="sr-only">Password</label>

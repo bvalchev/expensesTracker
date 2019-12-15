@@ -114,7 +114,7 @@ class TransactionList extends React.Component {
                                 .catch(error => console.error('Error:', error));
                         }
                     }
-                })
+                  })
 
                 var currenttransactionsSum = 0;
                 transactions.data.forEach(function (transaction) {
@@ -201,7 +201,7 @@ class TransactionList extends React.Component {
                     console.log(users.email)
                     this.setState({ userEmail: users.username })
                 } else {
-                    console.log('pedal');
+                    console.log('Email error');
                 }
             });
     }
