@@ -1,5 +1,11 @@
 import React, {Component} from 'react'
 import {Launcher} from 'react-chat-window'
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:5000', {
+  secure: true,
+  origins: "http://localhost:5000"
+});
+
  
 class ChatComponent extends Component {
  
@@ -9,24 +15,50 @@ class ChatComponent extends Component {
       messageList: []
     };
   }
- 
+
+  componentDidMount(){
+    socket.on( 'new message', function (response) {
+      let username = JSON.parse(localStorage.getItem('currentUser')).user.username;
+      let message = response.msg;
+      if(response.author !== username)
+      this.setState({
+        messageList: [...this.state.messageList, {
+          author: response.author,
+          type: 'text',
+          data: { message }
+        }]
+      })
+    })
+  }
+
   _onMessageWasSent(message) {
+    let username = JSON.parse(localStorage.getItem('currentUser')).user.username;
     this.setState({
       messageList: [...this.state.messageList, message]
     })
+    socket.emit('send message', {
+      author   : username,
+      type: 'text',
+      data: {message}
+    })
   }
  
-  _sendMessage(text) {
-    if (text.length > 0) {
-      this.setState({
-        messageList: [...this.state.messageList, {
-          author: 'them',
-          type: 'text',
-          data: { text }
-        }]
-      })
-    }
-  }
+  // _sendMessage(text) {
+  //   let username = JSON.parse(localStorage.getItem('currentUser')).user.username;
+    
+  //   socket.on( 'new message', function (response) {
+  //     let username = JSON.parse(localStorage.getItem('currentUser')).user.username;
+  //     let message = response.msg;
+  //     if(response.author !== username)
+  //     this.setState({
+  //       messageList: [...this.state.messageList, {
+  //         author: response.author,
+  //         type: 'text',
+  //         data: { message }
+  //       }]
+  //     })
+  //   })
+  // }
  
   render() {
     return (<div>

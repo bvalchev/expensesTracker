@@ -13,6 +13,7 @@ import Login from './components/login.js';
 import Register from './components/register.js';
 import PlansList from './components/plans/PlansList';
 import Dashboard from './components/dashboard';
+import ChatComponent from './components/Chat/ChatComponent';
 //import Navigation from './components/navigation';
 import {createBrowserHistory} from 'history';
 //import { useQueries } from 'history';
@@ -82,7 +83,9 @@ class App extends Component{
             </div>
           </div>
         </Router>
-        
+        <div>
+          <ChatComponent/>
+        </div>
         </div>
 
       );

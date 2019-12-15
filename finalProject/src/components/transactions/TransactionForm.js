@@ -93,7 +93,7 @@ class TransactionForm extends React.Component {
                     <label htmlFor="isExpense">
                       Type:
                     </label>
-                    <select className="form-control" id="isExpense" name="isExpense" value={this.state.isExpense} defaultValue="" onChange={this.handleChange} required>
+                    <select className="form-control" id="isExpense" name="isExpense" value={this.state.isExpense}  onChange={this.handleChange} required>
                       <option value="" disabled hidden>Please Choose...</option>
                       <option value={false}>Income</option>
                       <option value={true}>Expense</option>

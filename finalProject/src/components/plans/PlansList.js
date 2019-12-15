@@ -177,10 +177,6 @@ class PlansList extends React.Component {
         }
         </div>
 
-        <div>
-            <ChatComponent      />
-        </div>
-
         </div>
         );
     }
