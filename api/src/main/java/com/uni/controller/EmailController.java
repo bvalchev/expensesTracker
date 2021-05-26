@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/completed-plans")
-public class Controller {
+public class EmailController {
 
     @CrossOrigin(origins = "*")
     @PostMapping
