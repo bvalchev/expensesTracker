@@ -28,6 +28,7 @@ public class CurrencyConverterController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/convert")
     public CurrencyConvertResponse convert(@RequestBody CurrencyConvertRequest request) {
-        return client.convertCurrency(request.getCurrencyTo(), request.getCurrencyFrom());
+        return client.convertCurrency(request.getCurrencyTo(), request.getCurrencyFrom(),
+                request.getValueFrom());
     }
 }
