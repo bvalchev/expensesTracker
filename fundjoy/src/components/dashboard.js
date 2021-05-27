@@ -273,7 +273,7 @@ class Dashboard extends React.Component {
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2" style={{textAlign: 'center', color: 'green'}}>
                         <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Current</div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800"  >{this.state.balance}</div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800"  >{this.state.balance} {this.state.currencyFrom}</div>
                       </div>
                       <div className="col-auto">
                         <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -290,7 +290,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Daily Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.daily}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.daily} {this.state.currencyFrom}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -307,7 +307,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Weekly Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.weekly}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.weekly} {this.state.currencyFrom}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -326,7 +326,7 @@ class Dashboard extends React.Component {
                       <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Monthly Balance</div>
                       <div className="row no-gutters align-items-center">
                         <div className="col-auto">
-                          <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">{this.state.monthly}</div>
+                          <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">{this.state.monthly} {this.state.currencyFrom}</div>
                         </div>
                       </div>
                     </div>
@@ -345,7 +345,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Yearly Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.yearly}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.yearly} {this.state.currencyFrom}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-comments fa-2x text-gray-300"></i>
@@ -421,7 +421,7 @@ class Dashboard extends React.Component {
                     Choose currency to convert to:
                   </div>
                   <div style={{marginTop: '10px', fontSize: '20px'}}>
-                    <select class="form-select" aria-label="Default select example" onChange={this.onCurrencyChange}>
+                    <select className="form-select" aria-label="Default select example" onChange={this.onCurrencyChange}>
                       <option selected value="BGN">Bulgarian Lev</option>
                       <option value="EUR">EURO</option>
                       <option value="CNY">YUAN</option>
