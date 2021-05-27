@@ -13,6 +13,8 @@ const categoriesNames = ['food', 'clothes', 'groceries', 'bills', 'coffee', 'fre
 
 let PLANS_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
 let TRANSACTION_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
+const CONVERT_API_URL = 'http://localhost:4444/currency-converter/convert';
+
 class Dashboard extends React.Component {
     state = {
         transactions: [],
@@ -23,7 +25,9 @@ class Dashboard extends React.Component {
         daily: 0,
         balance: 0,
         categoriesValuesArray: [],
-        monthlyValuesArray: []
+        monthlyValuesArray: [],
+        currencyTo: 'BGN',
+        currencyFrom: 'USD'
     }
 
     constructor(props) {
@@ -32,6 +36,8 @@ class Dashboard extends React.Component {
         this.getBalance = this.getBalance.bind(this);
         this.getCategoriesValues = this.getCategoriesValues.bind(this);
         this.getMonthlyValues = this.getMonthlyValues.bind(this);
+        this.convertCurrency = this.convertCurrency.bind(this);
+        this.onCurrencyChange = this.onCurrencyChange.bind(this);
         userId = JSON.parse(localStorage.getItem('currentUser')) ? JSON.parse(localStorage.getItem('currentUser')).user.id : -1;
         PLANS_URL = 'http://localhost:9000/api/planDetail/' + userId + '/plans';
         TRANSACTION_URL = 'http://localhost:9000/api/transaction/' + userId + '/transactions';
@@ -130,6 +136,45 @@ class Dashboard extends React.Component {
             weekly: weeklySum,
             daily: dailySum
         });
+    }
+
+    convertCurrency(){
+      let dataToConvert = {}
+      dataToConvert.currencyFrom = this.state.currencyFrom;
+      dataToConvert.currencyTo = this.state.currencyTo;
+      console.log(JSON.stringify(dataToConvert))
+
+      let rate = 2;
+
+      fetch(CONVERT_API_URL, {
+        method: 'POST',
+        body: JSON.stringify(dataToConvert),
+        headers:{
+            'Content-Type': 'application/json'
+            //'Accept': 'application/json',
+            //'x-access-token':  JSON.parse(localStorage.getItem('currentUser')).token
+          }
+        })
+        .then(resp => resp.json())
+
+        .catch(error => console.error('Error:', error))
+        .then(response => {
+          console.log(response)
+            rate = response ? response.data : rate;
+        });
+
+      this.setState({
+        currencyFrom: this.state.currencyTo,
+        yearly: this.state.yearly * rate,
+        weekly: this.state.weekly * rate,
+        monthly: this.state.monthly * rate,
+        daily: this.state.daily * rate,
+        balance: this.state.balance * rate,
+      })
+    }
+
+    onCurrencyChange(currentCurrencySelected){
+      this.setState({currencyTo: currentCurrencySelected})
     }
 
     getCategoriesValues(transactions){
@@ -369,6 +414,20 @@ class Dashboard extends React.Component {
                     
                     />
                     </div>
+                </div>
+                <div className="col-lg-offset-3 col-lg-6" style={{textAlign: 'center', marginTop: '20px'}}>
+                  <div>
+                    Choose currency to convert to:
+                  </div>
+                  <div>
+                    <select class="form-select" aria-label="Default select example" onChange={this.onCurrencyChange}>
+                      <option selected value="BGN">Bulgarian Lev</option>
+                      <option value="EUR">EURO</option>
+                      <option value="CNY">YUAN</option>
+                    </select>
+                  </div>
+                  <button className="btn btn-lg" onClick={this.convertCurrency}>Convert </button>
+
                 </div>
             </div>
             
