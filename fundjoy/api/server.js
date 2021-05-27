@@ -46,13 +46,13 @@ MongoClient.connect(dburl, { useNewUrlParser: true }).then( db => {
     console.log("Database connected!");
     var database = db.db("expensesDatabase");
     database.createCollection("users", function(err, res) {
-        if (err) throw err;
+        if (err) console.log("users table exists");
     });
     database.createCollection("transactions", function(err, res) {
-        if (err) throw err;
+        if (err) console.log("transactions table exists");
     });
     database.createCollection("plans", function(err, res) {
-        if (err) throw err;
+        if (err) console.log("plans table exists");
     });
     app.locals.db = database;
     app.listen( port, err => {
