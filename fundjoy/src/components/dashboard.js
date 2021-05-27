@@ -416,17 +416,17 @@ class Dashboard extends React.Component {
                     </div>
                 </div>
                 <div className="col-lg-offset-3 col-lg-6" style={{textAlign: 'center', marginTop: '20px'}}>
-                  <div>
+                  <div style={{fontSize: '20px'}}>
                     Choose currency to convert to:
                   </div>
-                  <div>
+                  <div style={{marginTop: '10px', fontSize: '20px'}}>
                     <select class="form-select" aria-label="Default select example" onChange={this.onCurrencyChange}>
                       <option selected value="BGN">Bulgarian Lev</option>
                       <option value="EUR">EURO</option>
                       <option value="CNY">YUAN</option>
                     </select>
                   </div>
-                  <button className="btn btn-lg" onClick={this.convertCurrency}>Convert </button>
+                  <button typ="button" className="btn btn-primary btn-lg" onClick={this.convertCurrency} style={{marginTop: '10px'}}>Convert </button>
 
                 </div>
             </div>
