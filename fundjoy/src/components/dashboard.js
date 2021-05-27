@@ -142,9 +142,10 @@ class Dashboard extends React.Component {
       let dataToConvert = {}
       dataToConvert.currencyFrom = this.state.currencyFrom;
       dataToConvert.currencyTo = this.state.currencyTo;
+      dataToConvert.valueFrom = 1;
       console.log(JSON.stringify(dataToConvert))
 
-      let rate = 2;
+      let rate = 1;
 
       fetch(CONVERT_API_URL, {
         method: 'POST',
@@ -160,21 +161,21 @@ class Dashboard extends React.Component {
         .catch(error => console.error('Error:', error))
         .then(response => {
           console.log(response)
-            rate = response ? response.data : rate;
+            rate = response ? response.conversionResult : rate;
+            this.setState({
+              currencyFrom: this.state.currencyTo,
+              yearly: this.state.yearly * rate,
+              weekly: this.state.weekly * rate,
+              monthly: this.state.monthly * rate,
+              daily: this.state.daily * rate,
+              balance: this.state.balance * rate,
+            })      
         });
-
-      this.setState({
-        currencyFrom: this.state.currencyTo,
-        yearly: this.state.yearly * rate,
-        weekly: this.state.weekly * rate,
-        monthly: this.state.monthly * rate,
-        daily: this.state.daily * rate,
-        balance: this.state.balance * rate,
-      })
     }
 
-    onCurrencyChange(currentCurrencySelected){
-      this.setState({currencyTo: currentCurrencySelected})
+    onCurrencyChange(event){
+      console.log(event.value, event.target.value)
+      this.setState({currencyTo: event.target.value})
     }
 
     getCategoriesValues(transactions){
@@ -272,7 +273,7 @@ class Dashboard extends React.Component {
                     <div className="row no-gutters align-items-center">
                       <div className="col mr-2" style={{textAlign: 'center', color: 'green'}}>
                         <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Current</div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800"  >${this.state.balance}</div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800"  >{this.state.balance}</div>
                       </div>
                       <div className="col-auto">
                         <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -289,7 +290,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Daily Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">${this.state.daily}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.daily}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -306,7 +307,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Weekly Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">${this.state.weekly}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.weekly}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -325,7 +326,7 @@ class Dashboard extends React.Component {
                       <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Monthly Balance</div>
                       <div className="row no-gutters align-items-center">
                         <div className="col-auto">
-                          <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">${this.state.monthly}</div>
+                          <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">{this.state.monthly}</div>
                         </div>
                       </div>
                     </div>
@@ -344,7 +345,7 @@ class Dashboard extends React.Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Yearly Balance</div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">${this.state.yearly}</div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">{this.state.yearly}</div>
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-comments fa-2x text-gray-300"></i>
@@ -361,7 +362,7 @@ class Dashboard extends React.Component {
                       <h3 style={{color: 'orange'}} className="card-title">{plan.name}</h3>
                       <p className="card-text">{plan.description}</p>
                       <p className="card-text">Target: {plan.endDate}</p>
-                      <p style={{color: 'green', fontWeight: 'bold', fontSize: '1.5em'}}>Money left to accompish: ${(plan.amount - this.state.balance) > 0 ? plan.amount - this.state.balance : 0}</p>
+                      <p style={{color: 'green', fontWeight: 'bold', fontSize: '1.5em'}}>Money left to accompish: {(plan.amount - this.state.balance) > 0 ? plan.amount - this.state.balance : 0}</p>
                       <button className="btn btn-primary" disabled={(plan.amount - this.state.balance)> 0} onClick={this.accomplishPlan.bind(this, plan)}>Mark as accomplished</button>
                     </div>
                 </div>)})}

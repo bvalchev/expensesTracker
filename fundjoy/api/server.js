@@ -45,7 +45,7 @@ const dburl = 'mongodb://localhost:27017/expensesDatabase';
 MongoClient.connect(dburl, { useNewUrlParser: true }).then( db => {
     console.log("Database connected!");
     var database = db.db("expensesDatabase");
-    database.createCollection("users", function(err, res) {
+   /* database.createCollection("users", function(err, res) {
         if (err) throw err;
     });
     database.createCollection("transactions", function(err, res) {
@@ -53,7 +53,7 @@ MongoClient.connect(dburl, { useNewUrlParser: true }).then( db => {
     });
     database.createCollection("plans", function(err, res) {
         if (err) throw err;
-    });
+    });*/
     app.locals.db = database;
     app.listen( port, err => {
         if(err) throw err;

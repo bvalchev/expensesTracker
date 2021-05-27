@@ -23,7 +23,7 @@ public class CurrencyConverterClient extends WebServiceGatewaySupport {
         return (GetCurrencyListResponse) getWebServiceTemplate()
                 .marshalSendAndReceive("http://mondor.org/ces/rates.asmx?WSDL", request,
                         new SoapActionCallback(
-                                "http://mondor.org/GetCurrencyList"));
+                                    "http://mondor.org/GetCurrencyList"));
     }
 
     public CurrencyConvertResponse convertCurrency(String currencyTo, String currencyFrom,
