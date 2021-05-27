@@ -14,7 +14,6 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 public class CurrencyConverterClient extends WebServiceGatewaySupport {
 
     private static final String API_KEY = System.getProperty("api.key", "daa5d569caa74b7fa3727f6fa0fea967");
-    private static final double VALUE_FROM = 7;
     private static final Logger log = LoggerFactory.getLogger(CurrencyConverterClient.class);
 
     public GetCurrencyListResponse getCurrencies() {
@@ -24,16 +23,17 @@ public class CurrencyConverterClient extends WebServiceGatewaySupport {
         return (GetCurrencyListResponse) getWebServiceTemplate()
                 .marshalSendAndReceive("http://mondor.org/ces/rates.asmx?WSDL", request,
                         new SoapActionCallback(
-                                "http://mondor.org/GetCurrencyList"));
+                                    "http://mondor.org/GetCurrencyList"));
     }
 
-    public CurrencyConvertResponse convertCurrency(String currencyTo, String currencyFrom) {
+    public CurrencyConvertResponse convertCurrency(String currencyTo, String currencyFrom,
+            double valueFrom) {
         Convert request = new Convert();
         request.setCurrencyTo(currencyTo);
         request.setCurrencyFrom(currencyFrom);
         request.setUserKey(API_KEY);
-        request.setValueFrom(VALUE_FROM);
-        log.info("Requesting conversion from: {} to {}", currencyTo, currencyFrom);
+        request.setValueFrom(valueFrom);
+        log.info("Requesting conversion for {} {} to {}", valueFrom, currencyFrom, currencyTo);
 
         ConvertResponse response = (ConvertResponse) getWebServiceTemplate()
                 .marshalSendAndReceive("http://mondor.org/ces/rates.asmx?WSDL", request,

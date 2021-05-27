@@ -20,7 +20,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "test"
 CORS(app)
 
-ROOT_PATH = os.environ["ROOT_PATH"]
+#ROOT_PATH = os.environ["ROOT_PATH"]
 
 # mongoDB
 mongo_client = MongoClient("mongodb://localhost:27017/test")

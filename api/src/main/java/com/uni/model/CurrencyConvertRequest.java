@@ -7,4 +7,5 @@ public class CurrencyConvertRequest {
 
     public String currencyTo;
     public String currencyFrom;
+    public double valueFrom;
 }
