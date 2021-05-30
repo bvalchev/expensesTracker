@@ -89,7 +89,7 @@ class TransactionForm extends React.Component {
                     </div>
                   </div>)}
                 <div className="form-row">
-                  <div className="form-group col-sm-12 col-md-3">
+                  <div className="form-group col-sm-12 col-md-4">
                     <label htmlFor="isExpense">
                       Type:
                     </label>
@@ -99,7 +99,7 @@ class TransactionForm extends React.Component {
                       <option value={true}>Expense</option>
                     </select>
                   </div>
-                  <div className="form-group  col-sm-12 col-md-3">
+                  <div className="form-group  col-sm-12 col-md-4">
                     <label>
                       Categoty:
                     </label>
@@ -115,13 +115,14 @@ class TransactionForm extends React.Component {
                   </div>
                 </div>
                 <div className="form-row">
-                  <div className="form-group  col-sm-12 col-md-3">
-                    <label>
-                      Is Periodical?
+                  <div className="form-group  col-sm-12 col-md-4" style={{marginTop: "18px"}}>
+                      <label className="col-md-9" >
+                        Is Periodical?
                       </label>
-                      <input className="form-control" type="checkbox" name="isPeriodical" value={this.state.isPeriodical} onChange={this.handleChange} />
+                      <input className="col-md-1 col-md-offset-2" type="checkbox" name="isPeriodical" value={this.state.isPeriodical} onChange={this.handleChange} />
+
                   </div>
-                  <div className="form-group  col-sm-12 col-md-3">
+                  <div className="form-group  col-sm-12 col-md-4">
                     <label>
                       Period:
                     </label>
@@ -155,8 +156,8 @@ class TransactionForm extends React.Component {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-12">
-                    <input className="btn btn-primary" type="submit" value="Submit" />
-                    <button className="btn btn-secondary" onClick={this.props.onClose}>Close</button>
+                    <input className="btn btn-primary btn-lg" type="submit" value="Submit" />
+                    <button className="btn btn-secondary btn-lg" type="button" onClick={this.props.onClose} style={{marginLeft: "5px"}}>Close</button>
                   </div>
                 </div>
               </form>
